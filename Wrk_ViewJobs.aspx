@@ -7,10 +7,11 @@
         <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="Vertical" CssClass="col-md-6 panel panel-default">
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>
+                <asp:BoundField DataField="CurrentBid" HeaderText="CurrentBid" SortExpression="CurrentBid" />
+                <asp:BoundField DataField="Id_Employer" HeaderText="Id_Employer" SortExpression="Id_Employer" />
                 <asp:BoundField DataField="Type" HeaderText="Type" SortExpression="Type" />
                 <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
                 <asp:BoundField DataField="Region" HeaderText="Region" SortExpression="Region" />
-                <asp:BoundField DataField="CurrentBid" HeaderText="CurrentBid" SortExpression="CurrentBid" />
                 <asp:BoundField DataField="Image" HeaderText="Image" SortExpression="Image" />
             </Columns>
             <EditRowStyle BackColor="#999999" />
@@ -24,7 +25,7 @@
             <SortedDescendingCellStyle BackColor="#FFFDF8" />
             <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
         </asp:GridView>
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [Type], [Description], [Region], [CurrentBid], [Image] FROM [Jobs]"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [CurrentBid], [Id_Employer], [Type], [Description], [Region], [Image] FROM [Jobs]"></asp:SqlDataSource>
     </div>
 
 </asp:Content>
