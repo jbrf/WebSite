@@ -55,6 +55,6 @@ public partial class Emp_AddJob : System.Web.UI.Page
     protected void LogOutBtn_Click(object sender, EventArgs e)
     {
         Session[Configuration.SessionUser] = null;
-        Response.Redirect("Default.aspx")
+        Response.Redirect("Default.aspx");
     }
 }
