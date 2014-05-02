@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LuffarJobbDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="LuffarJobbDBModelStoreContainer">
+          <EntitySet Name="Bids" EntityType="LuffarJobbDBModel.Store.Bids" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Employers" EntityType="LuffarJobbDBModel.Store.Employers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="JobComments" EntityType="LuffarJobbDBModel.Store.JobComments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Jobs" EntityType="LuffarJobbDBModel.Store.Jobs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Workers" EntityType="LuffarJobbDBModel.Store.Workers" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Bids_ToJobs" Association="LuffarJobbDBModel.Store.FK_Bids_ToJobs">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="Bids" EntitySet="Bids" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bids_ToWorkers" Association="LuffarJobbDBModel.Store.FK_Bids_ToWorkers">
+            <End Role="Workers" EntitySet="Workers" />
+            <End Role="Bids" EntitySet="Bids" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobComments_ToJobs" Association="LuffarJobbDBModel.Store.FK_JobComments_ToJobs">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="JobComments" EntitySet="JobComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_ToEmployers" Association="LuffarJobbDBModel.Store.FK_Jobs_ToEmployers">
+            <End Role="Employers" EntitySet="Employers" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Bids">
+          <Key>
+            <PropertyRef Name="Id_Bid" />
+          </Key>
+          <Property Name="Id_Bid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Job" Type="int" Nullable="false" />
+          <Property Name="Id_Worker" Type="int" Nullable="false" />
+          <Property Name="Bid" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employers">
+          <Key>
+            <PropertyRef Name="Id_Employer" />
+          </Key>
+          <Property Name="Id_Employer" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="JobComments">
+          <Key>
+            <PropertyRef Name="Id_JobComment" />
+          </Key>
+          <Property Name="Id_JobComment" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Job" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jobs">
+          <Key>
+            <PropertyRef Name="Id_Job" />
+          </Key>
+          <Property Name="Id_Job" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Employer" Type="int" Nullable="false" />
+          <Property Name="Type" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Region" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="CurrentBid" Type="int" />
+          <Property Name="Image" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Workers">
+          <Key>
+            <PropertyRef Name="Id_Worker" />
+          </Key>
+          <Property Name="Id_Worker" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Bids_ToJobs">
+          <End Role="Jobs" Type="LuffarJobbDBModel.Store.Jobs" Multiplicity="1" />
+          <End Role="Bids" Type="LuffarJobbDBModel.Store.Bids" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="Id_Job" />
+            </Principal>
+            <Dependent Role="Bids">
+              <PropertyRef Name="Id_Job" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bids_ToWorkers">
+          <End Role="Workers" Type="LuffarJobbDBModel.Store.Workers" Multiplicity="1" />
+          <End Role="Bids" Type="LuffarJobbDBModel.Store.Bids" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Workers">
+              <PropertyRef Name="Id_Worker" />
+            </Principal>
+            <Dependent Role="Bids">
+              <PropertyRef Name="Id_Worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobComments_ToJobs">
+          <End Role="Jobs" Type="LuffarJobbDBModel.Store.Jobs" Multiplicity="1" />
+          <End Role="JobComments" Type="LuffarJobbDBModel.Store.JobComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="Id_Job" />
+            </Principal>
+            <Dependent Role="JobComments">
+              <PropertyRef Name="Id_Job" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobs_ToEmployers">
+          <End Role="Employers" Type="LuffarJobbDBModel.Store.Employers" Multiplicity="1" />
+          <End Role="Jobs" Type="LuffarJobbDBModel.Store.Jobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employers">
+              <PropertyRef Name="Id_Employer" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="Id_Employer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LuffarJobbDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="LuffarJobbDBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Bids" EntityType="LuffarJobbDBModel.Bids" />
+          <EntitySet Name="Employers" EntityType="LuffarJobbDBModel.Employers" />
+          <EntitySet Name="JobComments" EntityType="LuffarJobbDBModel.JobComments" />
+          <EntitySet Name="Jobs" EntityType="LuffarJobbDBModel.Jobs" />
+          <EntitySet Name="Workers" EntityType="LuffarJobbDBModel.Workers" />
+          <AssociationSet Name="FK_Bids_ToJobs" Association="LuffarJobbDBModel.FK_Bids_ToJobs">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="Bids" EntitySet="Bids" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bids_ToWorkers" Association="LuffarJobbDBModel.FK_Bids_ToWorkers">
+            <End Role="Workers" EntitySet="Workers" />
+            <End Role="Bids" EntitySet="Bids" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Jobs_ToEmployers" Association="LuffarJobbDBModel.FK_Jobs_ToEmployers">
+            <End Role="Employers" EntitySet="Employers" />
+            <End Role="Jobs" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JobComments_ToJobs" Association="LuffarJobbDBModel.FK_JobComments_ToJobs">
+            <End Role="Jobs" EntitySet="Jobs" />
+            <End Role="JobComments" EntitySet="JobComments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Bids">
+          <Key>
+            <PropertyRef Name="Id_Bid" />
+          </Key>
+          <Property Name="Id_Bid" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Job" Type="Int32" Nullable="false" />
+          <Property Name="Id_Worker" Type="Int32" Nullable="false" />
+          <Property Name="Bid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Jobs" Relationship="LuffarJobbDBModel.FK_Bids_ToJobs" FromRole="Bids" ToRole="Jobs" />
+          <NavigationProperty Name="Workers" Relationship="LuffarJobbDBModel.FK_Bids_ToWorkers" FromRole="Bids" ToRole="Workers" />
+        </EntityType>
+        <EntityType Name="Employers">
+          <Key>
+            <PropertyRef Name="Id_Employer" />
+          </Key>
+          <Property Name="Id_Employer" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Jobs" Relationship="LuffarJobbDBModel.FK_Jobs_ToEmployers" FromRole="Employers" ToRole="Jobs" />
+        </EntityType>
+        <EntityType Name="JobComments">
+          <Key>
+            <PropertyRef Name="Id_JobComment" />
+          </Key>
+          <Property Name="Id_JobComment" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Job" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Jobs" Relationship="LuffarJobbDBModel.FK_JobComments_ToJobs" FromRole="JobComments" ToRole="Jobs" />
+        </EntityType>
+        <EntityType Name="Jobs">
+          <Key>
+            <PropertyRef Name="Id_Job" />
+          </Key>
+          <Property Name="Id_Job" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Employer" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Region" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="CurrentBid" Type="Int32" />
+          <NavigationProperty Name="Bids" Relationship="LuffarJobbDBModel.FK_Bids_ToJobs" FromRole="Jobs" ToRole="Bids" />
+          <NavigationProperty Name="Employers" Relationship="LuffarJobbDBModel.FK_Jobs_ToEmployers" FromRole="Jobs" ToRole="Employers" />
+          <NavigationProperty Name="JobComments" Relationship="LuffarJobbDBModel.FK_JobComments_ToJobs" FromRole="Jobs" ToRole="JobComments" />
+          <Property Type="String" Name="Image" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Workers">
+          <Key>
+            <PropertyRef Name="Id_Worker" />
+          </Key>
+          <Property Name="Id_Worker" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Bids" Relationship="LuffarJobbDBModel.FK_Bids_ToWorkers" FromRole="Workers" ToRole="Bids" />
+        </EntityType>
+        <Association Name="FK_Bids_ToJobs">
+          <End Role="Jobs" Type="LuffarJobbDBModel.Jobs" Multiplicity="1" />
+          <End Role="Bids" Type="LuffarJobbDBModel.Bids" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="Id_Job" />
+            </Principal>
+            <Dependent Role="Bids">
+              <PropertyRef Name="Id_Job" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bids_ToWorkers">
+          <End Role="Workers" Type="LuffarJobbDBModel.Workers" Multiplicity="1" />
+          <End Role="Bids" Type="LuffarJobbDBModel.Bids" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Workers">
+              <PropertyRef Name="Id_Worker" />
+            </Principal>
+            <Dependent Role="Bids">
+              <PropertyRef Name="Id_Worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Jobs_ToEmployers">
+          <End Role="Employers" Type="LuffarJobbDBModel.Employers" Multiplicity="1" />
+          <End Role="Jobs" Type="LuffarJobbDBModel.Jobs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employers">
+              <PropertyRef Name="Id_Employer" />
+            </Principal>
+            <Dependent Role="Jobs">
+              <PropertyRef Name="Id_Employer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JobComments_ToJobs">
+          <End Role="Jobs" Type="LuffarJobbDBModel.Jobs" Multiplicity="1" />
+          <End Role="JobComments" Type="LuffarJobbDBModel.JobComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jobs">
+              <PropertyRef Name="Id_Job" />
+            </Principal>
+            <Dependent Role="JobComments">
+              <PropertyRef Name="Id_Job" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LuffarJobbDBModelStoreContainer" CdmEntityContainer="LuffarJobbDBEntities">
+          <EntitySetMapping Name="Bids">
+            <EntityTypeMapping TypeName="LuffarJobbDBModel.Bids">
+              <MappingFragment StoreEntitySet="Bids">
+                <ScalarProperty Name="Id_Bid" ColumnName="Id_Bid" />
+                <ScalarProperty Name="Id_Job" ColumnName="Id_Job" />
+                <ScalarProperty Name="Id_Worker" ColumnName="Id_Worker" />
+                <ScalarProperty Name="Bid" ColumnName="Bid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employers">
+            <EntityTypeMapping TypeName="LuffarJobbDBModel.Employers">
+              <MappingFragment StoreEntitySet="Employers">
+                <ScalarProperty Name="Id_Employer" ColumnName="Id_Employer" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobComments">
+            <EntityTypeMapping TypeName="LuffarJobbDBModel.JobComments">
+              <MappingFragment StoreEntitySet="JobComments">
+                <ScalarProperty Name="Id_JobComment" ColumnName="Id_JobComment" />
+                <ScalarProperty Name="Id_Job" ColumnName="Id_Job" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jobs">
+            <EntityTypeMapping TypeName="LuffarJobbDBModel.Jobs">
+              <MappingFragment StoreEntitySet="Jobs">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Id_Job" ColumnName="Id_Job" />
+                <ScalarProperty Name="Id_Employer" ColumnName="Id_Employer" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="CurrentBid" ColumnName="CurrentBid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Workers">
+            <EntityTypeMapping TypeName="LuffarJobbDBModel.Workers">
+              <MappingFragment StoreEntitySet="Workers">
+                <ScalarProperty Name="Id_Worker" ColumnName="Id_Worker" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

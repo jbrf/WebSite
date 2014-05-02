@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2464f141e43d4c68807b95b21596eb60" Name="Diagram1">
+        <EntityTypeShape EntityType="LuffarJobbDBModel.Bids" Width="1.5" PointX="5.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuffarJobbDBModel.Employers" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuffarJobbDBModel.JobComments" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuffarJobbDBModel.Jobs" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="LuffarJobbDBModel.Workers" Width="1.5" PointX="2" PointY="6.375" IsExpanded="true" />
+        <AssociationConnector Association="LuffarJobbDBModel.FK_Bids_ToJobs" ManuallyRouted="false" />
+        <AssociationConnector Association="LuffarJobbDBModel.FK_Bids_ToWorkers" ManuallyRouted="false" />
+        <AssociationConnector Association="LuffarJobbDBModel.FK_Jobs_ToEmployers" ManuallyRouted="false" />
+        <AssociationConnector Association="LuffarJobbDBModel.FK_JobComments_ToJobs" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
