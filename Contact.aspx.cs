@@ -9,7 +9,7 @@ public partial class Contact : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Jobs foo = DataFactory.RetImage(15);
-        Image1.ImageUrl = foo.Image;
+        //Jobs foo = DataFactory.RetImage(15);
+      //  Image1.ImageUrl = foo.Image;
     }
 }

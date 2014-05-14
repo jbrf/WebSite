@@ -3,32 +3,22 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
     <div class="form jbdevsevilmasterplan">
         Här finns alla jobb som är till gängliga!<br />
         <br />
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="Vertical" CssClass="form-group form">
-            <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
+        <asp:GridView ID="GridView1" runat="server" DataKeyNames="Id_Job" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource1" GridLines="None" CssClass="table table-hover" AutoGenerateSelectButton="True" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
             <Columns>
-                <asp:BoundField DataField="CurrentBid" HeaderText="Högsta bud " SortExpression="CurrentBid" />
-                <asp:BoundField DataField="Id_Employer" HeaderText="Id_Employer" SortExpression="Id_Employer" />
-                <asp:BoundField DataField="Type" HeaderText="Type" SortExpression="Type" />
-                <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
+                <asp:BoundField DataField="Id_Job" HeaderText="ss" SortExpression="Id_Job" ItemStyle-CssClass="hiddencol" HeaderStyle-CssClass="hiddencol"/>
+                <asp:BoundField DataField="Type" HeaderText="Jobbtyp" SortExpression="Type" />
+                <asp:BoundField DataField="Description" HeaderText="Beskrivning" SortExpression="Description" />
                 <asp:BoundField DataField="Region" HeaderText="Region" SortExpression="Region" />
-                <asp:BoundField DataField="Image" HeaderText="Image" SortExpression="Image" />
+                <asp:BoundField DataField="CurrentBid" HeaderText="Nuvarande bud " SortExpression="CurrentBid" />
+
             </Columns>
-            <EditRowStyle BackColor="#999999" />
-            <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#284775" ForeColor="White" HorizontalAlign="Center" />
-            <RowStyle BackColor="#F7F6F3" ForeColor="#333333" />
-            <SelectedRowStyle BackColor="#E2DED6" Font-Bold="True" ForeColor="#333333" />
-            <SortedAscendingCellStyle BackColor="#E9E7E2" />
-            <SortedAscendingHeaderStyle BackColor="#506C8C" />
-            <SortedDescendingCellStyle BackColor="#FFFDF8" />
-            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
         </asp:GridView>
         <br />
-        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [CurrentBid], [Id_Employer], [Type], [Description], [Region], [Image] FROM [Jobs]"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [CurrentBid], [Id_Job], [Id_Employer], [Type], [Description], [Region] FROM [Jobs]"></asp:SqlDataSource>
     </div>
 
 </asp:Content>

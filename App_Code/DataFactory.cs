@@ -14,9 +14,9 @@ public class DataFactory
     {
         using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
         {
-            var q = from u in db.Employers
-                    where u.UserName == username
-                    select u;
+            var q = from e in db.Employers
+                    where e.UserName == username
+                    select e;
             return q.FirstOrDefault();
         }
     }
@@ -25,9 +25,9 @@ public class DataFactory
     {
         using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
         {
-            var q = from u in db.Workers
-                    where u.UserName == username
-                    select u;
+            var q = from w in db.Workers
+                    where w.UserName == username
+                    select w;
             return q.FirstOrDefault();
         }
     }
@@ -36,21 +36,54 @@ public class DataFactory
     {
         using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
         {
-            var q = from u in db.Employers
-                    where u.UserName == username
-                    select u.Id_Employer;
+            var q = from e in db.Employers
+                    where e.UserName == username
+                    select e.Id_Employer;
+            return q.FirstOrDefault();
+        }
+    }
+    static public Jobs RetJob(int id)
+    {
+        using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
+        {
+            var q = from j in db.Jobs
+                    where j.Id_Job == id
+                    select j;
+            return q.FirstOrDefault();
+        }
+    }
+    static public string RetEmpUsername(int id)
+    {
+        using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
+        {
+            var q = from e in db.Employers
+                    where e.Id_Employer == id
+                    select e.UserName;
             return q.FirstOrDefault();
         }
     }
 
-    static public Jobs RetImage(int jobid)
+    static public void AddBid(Bids bid)
     {
         using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
         {
-            var q = from u in db.Jobs
-                    where u.Id_Job == jobid
-                    select u;
-            return q.FirstOrDefault();
+            db.Bids.Add(bid);
+
+            db.SaveChanges();
         }
+    }
+    static public int GetLowestBid(int jobId)
+    {
+        using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
+        {
+            var q = from job in db.Jobs
+                    join b in db.Bids on job.Id_Job equals b.Id_Job into g
+                    select new
+                    {
+                        LowestBid = g.Min(b => b.Bid)
+                    };
+            return Convert.ToInt32(q);
+        }
+        
     }
 }
