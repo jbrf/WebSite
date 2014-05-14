@@ -3,6 +3,8 @@
 }
 
 .jbdevsevilmasterplan {
-    margin-left: 0;
-    margin-right: 0;
+ display: block;
+  margin: 10px auto 10px auto;
+  padding: 3px;
+  
 }

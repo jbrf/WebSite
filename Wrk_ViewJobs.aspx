@@ -3,11 +3,13 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="form">
-        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="Vertical" CssClass="col-md-6 panel panel-default">
+    <div class="form jbdevsevilmasterplan">
+        Här finns alla jobb som är till gängliga!<br />
+        <br />
+        <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4" DataSourceID="SqlDataSource1" ForeColor="#333333" GridLines="Vertical" CssClass="form-group form">
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <Columns>
-                <asp:BoundField DataField="CurrentBid" HeaderText="CurrentBid" SortExpression="CurrentBid" />
+                <asp:BoundField DataField="CurrentBid" HeaderText="Högsta bud " SortExpression="CurrentBid" />
                 <asp:BoundField DataField="Id_Employer" HeaderText="Id_Employer" SortExpression="Id_Employer" />
                 <asp:BoundField DataField="Type" HeaderText="Type" SortExpression="Type" />
                 <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
@@ -25,6 +27,7 @@
             <SortedDescendingCellStyle BackColor="#FFFDF8" />
             <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
         </asp:GridView>
+        <br />
         <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [CurrentBid], [Id_Employer], [Type], [Description], [Region], [Image] FROM [Jobs]"></asp:SqlDataSource>
     </div>
 
