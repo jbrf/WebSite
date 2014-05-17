@@ -47,6 +47,11 @@ public partial class Emp_AddJob : System.Web.UI.Page
             Image = path
         };
 
+        //Bids bid = new Bids()
+        //{
+        //    bid
+        //};
+
         LuffarJobbDBEntities db = new LuffarJobbDBEntities();
         db.Jobs.Add(job);
         db.SaveChanges();

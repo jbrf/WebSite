@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>LuffarJobb by JbDev</title>
-    
+
     <link href="Content/bootstrap.css" rel="stylesheet" />
     <link href="Content/bootstrap-theme.css" rel="stylesheet" />
     <link href="Content/StyleSheet.css" rel="stylesheet" />
@@ -17,36 +17,37 @@
 </head>
 <body>
     <div class="navbar navbar-default">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <a class="navbar-brand pull-left" href="default.aspx">Jobb för Luffare</a>
+        <%--<div class="navbar-header">--%>
+        <%--      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="default.aspx">Jobb för Luffare</a>
-        </div>
-        <div class="navbar-collapse collapse">
+            </button>--%>
+        <%--</div>--%>
+        <%--<div class="navbar-collapse collapse">
+            </div>--%>
+            
 
-        </div>
     </div>
     <form id="form1" role="form" runat="server">
-   
-            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-            </asp:ContentPlaceHolder>
-        
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+
     </form>
 </body>
 </html>
-           <%-- <ul class="nav navbar-nav">--%>
-          <%--      <li class=""><a href="default.aspx">Home</a></li>
+<%-- <ul class="nav navbar-nav">--%>
+<%--      <li class=""><a href="default.aspx">Home</a></li>
                 <li><a href="About.aspx">Contact us</a></li>--%>
 
-         <%--   </ul>
+<%--   </ul>
             <div class="navbar-form navbar-left">
                 <input type="text" class="form-control col-lg-8" placeholder="Search" />
             </div>--%>
 
-           <%-- <ul class="nav navbar-nav navbar-right">
+<%-- <ul class="nav navbar-nav navbar-right">
                 <li id="Li1" visible="true" runat="server"><a href="MainContentPage.aspx">MainContentPage</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account<b class="caret"></b></a>

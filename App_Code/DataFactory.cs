@@ -76,13 +76,11 @@ public class DataFactory
     {
         using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
         {
-            var q = from job in db.Jobs
-                    join b in db.Bids on job.Id_Job equals b.Id_Job into g
-                    select new
-                    {
-                        LowestBid = g.Min(b => b.Bid)
-                    };
-            return Convert.ToInt32(q);
+            var q = from b in db.Bids
+                    where b.Id_Job == jobId
+                    orderby b.Bid ascending
+                    select b.Bid;
+            return q.FirstOrDefault();
         }
         
     }
