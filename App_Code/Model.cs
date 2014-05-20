@@ -40,6 +40,7 @@ public partial class JobComments
     public int Id_JobComment { get; set; }
     public int Id_Job { get; set; }
     public string Comment { get; set; }
+    public string Author { get; set; }
 
     public virtual Jobs Jobs { get; set; }
 }

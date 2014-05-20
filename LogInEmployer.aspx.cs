@@ -25,9 +25,7 @@ public partial class LogInEmployer : System.Web.UI.Page
         }
         if (currentEmp.Password == password)
         {
-            Session[Configuration.SessionUser] = currentEmp;
-          //  Employers foo = (Employers) Session[Configuration.SessionUser];
-          //  int x = 1;
+            Session["user"] = currentEmp.UserName;
             Response.Redirect("Emp_AddJob.aspx");
         }
         else

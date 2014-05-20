@@ -9,6 +9,7 @@ public partial class testtest : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        Label1.Text = Configuration.SessionUser;
+        
+        Label1.Text = Session["user"].ToString();
     }
 }

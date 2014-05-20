@@ -52,6 +52,7 @@
           <Property Name="Id_JobComment" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Id_Job" Type="int" Nullable="false" />
           <Property Name="Comment" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Author" Type="nvarchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="Jobs">
           <Key>
@@ -176,6 +177,7 @@
           <Property Name="Id_Job" Type="Int32" Nullable="false" />
           <Property Name="Comment" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Jobs" Relationship="LuffarJobbDBModel.FK_JobComments_ToJobs" FromRole="JobComments" ToRole="Jobs" />
+          <Property Type="String" Name="Author" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Jobs">
           <Key>
@@ -277,6 +279,7 @@
           <EntitySetMapping Name="JobComments">
             <EntityTypeMapping TypeName="LuffarJobbDBModel.JobComments">
               <MappingFragment StoreEntitySet="JobComments">
+                <ScalarProperty Name="Author" ColumnName="Author" />
                 <ScalarProperty Name="Id_JobComment" ColumnName="Id_JobComment" />
                 <ScalarProperty Name="Id_Job" ColumnName="Id_Job" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />

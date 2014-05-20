@@ -28,6 +28,9 @@ public partial class RegWorker : System.Web.UI.Page
             db.SaveChanges();
 
             ConfirmationLblUser.Visible = true;
+
+            Session["user"] = RegEmailUser.Value;
+            Response.Redirect("Wrk_ViewJobs.aspx");
         }
         else if (RegPasswordUser.Value != RegPasswordRptUser.Value) WrongPwLblUser.Visible = true;
     }

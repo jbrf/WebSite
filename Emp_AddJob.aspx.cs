@@ -12,10 +12,10 @@ public partial class Emp_AddJob : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session[Configuration.SessionUser] == null) {
+        if (Session["user"] == null) {
             Response.Redirect("Default.aspx");
         }
-        _currentEmployer = (Employers)Session[Configuration.SessionUser];
+        _currentEmployer = (Employers)Session["user"];
         loggedInAsLbl.Text = _currentEmployer.UserName;
     }
 
@@ -59,7 +59,7 @@ public partial class Emp_AddJob : System.Web.UI.Page
     }
     protected void LogOutBtn_Click(object sender, EventArgs e)
     {
-        Session[Configuration.SessionUser] = null;
+        Session["user"] = null;
         Response.Redirect("Default.aspx");
     }
 }

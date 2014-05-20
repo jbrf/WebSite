@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
+using System.Web.SessionState;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
@@ -12,19 +14,20 @@ public partial class ViewJob : System.Web.UI.Page
     int jobId;
     int currentBid;
 
-
-    //protected string GetBid()
-    //{
-    //    string foo = Convert.ToString(DataFactory.GetLowestBid(jobId));
-    //    if (foo == null) return "";
-    //    else return foo;
-    //}
-
     protected void Page_Init(object sender, EventArgs e)
     {
         jobId = (int)Session["theJob"];
         theJob = DataFactory.RetJob(jobId);
         currentBid = DataFactory.GetLowestBid(jobId);
+        CommentTextArea.Value = null;
+        try
+        {
+            FillUpComments();
+        }
+        catch (Exception)
+        {
+            AvailableCommentsLbl.Text = "Inga kommentarer";
+        }
 
         if (currentBid == 0)
         {
@@ -46,7 +49,8 @@ public partial class ViewJob : System.Web.UI.Page
             ImageHprLnk.NavigateUrl = theJob.Image;
         }
 
-        else if (String.IsNullOrEmpty(theJob.Image)) { 
+        else if (String.IsNullOrEmpty(theJob.Image))
+        {
             ImageHprLnk.Visible = false;
             ImageJob.Visible = false;
         }
@@ -56,10 +60,10 @@ public partial class ViewJob : System.Web.UI.Page
     {
         jobId = (int)Session["theJob"];
 
-        Workers currentWorker = (Workers)Session[Configuration.SessionUser];
+        Workers currentWorker = (Workers)Session["user"];
         int giveBid = Convert.ToInt32(Bidtxtbox.Text);
-        int currentBid = DataFactory.GetLowestBid(jobId); //Convert.ToInt32(CurrentbidLbl.Text);
-        if (giveBid <= currentBid || giveBid <= 0 || currentBid == 0)
+        int lowestBid = DataFactory.GetLowestBid(jobId);
+        if (giveBid <= lowestBid || giveBid <= 0 || lowestBid == 0)
         {
             Bids bid = new Bids()
             {
@@ -71,10 +75,67 @@ public partial class ViewJob : System.Web.UI.Page
             Response.Redirect("ViewJob.aspx");
         }
 
-        if (giveBid >= currentBid)
+        if (giveBid >= lowestBid)
         {
             ErrorInBidLbl.Text = "Ditt bud är för högt, det ligger redan ett lägre bud på detta jobb!";
         }
 
+    }
+
+
+    protected void SubmitCommentBtn_OnClick(object sender, EventArgs e)
+    {
+        if (CommentTextArea.Value != null)
+        {
+            string comment = CommentTextArea.Value;
+            string author = Session["user"].ToString();
+            jobId = (int)Session["theJob"];
+
+            JobComments jc = new JobComments()
+            {
+                Comment = comment,
+                Author = author,
+                Id_Job = jobId
+            };
+            LuffarJobbDBEntities db = new LuffarJobbDBEntities();
+            db.JobComments.Add(jc);
+            db.SaveChanges();
+
+            CommentTextArea.Value = "";
+            Response.Redirect(Request.RawUrl);
+        }
+        else
+        {
+            ErrorInBidLbl.Text = "Kan inte göra en tom kommentar";
+        }
+    }
+
+    private void FillUpComments()
+    {
+        jobId = (int)Session["theJob"];
+        StringBuilder sb = new StringBuilder();
+
+        foreach (var c in DataFactory.GetJobComments(Convert.ToInt32(jobId)))
+        {
+            sb.Append(
+                string.Format(
+                    @"<table class='CommentsTable table'>
+            <div class='col-md-3'>
+            <tr>
+                <th>Användare: </th>
+                <td>{0}</td>
+            </tr>
+            </div>
+            <br />
+            <div class='col-md-3'>
+            <tr>
+                <th>Kommentar: </th>
+                <td>{1}</td>
+            </tr>         
+            </div>
+           </table>", c.Author, c.Comment));
+        }
+        AvailableCommentsLbl.Visible = true;
+        AvailableCommentsLbl.Text = sb.ToString();
     }
 }

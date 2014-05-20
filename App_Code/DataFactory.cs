@@ -82,6 +82,22 @@ public class DataFactory
                     select b.Bid;
             return q.FirstOrDefault();
         }
-        
+
+    }
+
+    static public List<JobComments> GetJobComments(int jobId)
+    {
+        List<JobComments> jc = new List<JobComments>();
+        using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
+        {
+            var q = from j in db.JobComments
+                    where j.Id_Job == jobId
+                    select j;
+
+            jc.AddRange(q);
+
+        }
+
+        return jc;
     }
 }
