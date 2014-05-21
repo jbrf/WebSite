@@ -21,13 +21,13 @@ public class DataFactory
         }
     }
 
-    static public Workers RetWork(string username)
+    static public string RetEmpUsername(int id)
     {
         using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
         {
-            var q = from w in db.Workers
-                    where w.UserName == username
-                    select w;
+            var q = from e in db.Employers
+                    where e.Id_Employer == id
+                    select e.UserName;
             return q.FirstOrDefault();
         }
     }
@@ -42,6 +42,18 @@ public class DataFactory
             return q.FirstOrDefault();
         }
     }
+
+    static public Workers RetWork(string username)
+    {
+        using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
+        {
+            var q = from w in db.Workers
+                    where w.UserName == username
+                    select w;
+            return q.FirstOrDefault();
+        }
+    }
+
     static public Jobs RetJob(int id)
     {
         using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
@@ -52,17 +64,7 @@ public class DataFactory
             return q.FirstOrDefault();
         }
     }
-    static public string RetEmpUsername(int id)
-    {
-        using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
-        {
-            var q = from e in db.Employers
-                    where e.Id_Employer == id
-                    select e.UserName;
-            return q.FirstOrDefault();
-        }
-    }
-
+    
     static public void AddBid(Bids bid)
     {
         using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
@@ -72,6 +74,20 @@ public class DataFactory
             db.SaveChanges();
         }
     }
+    
+    static public void UpdateCurrentbid(int jobId, int bid)
+    {
+        using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())
+        {
+            Jobs q = (from j in db.Jobs
+                      where j.Id_Job == jobId
+                      select j).FirstOrDefault();
+
+            q.CurrentBid = bid;
+            db.SaveChanges();
+        }
+    }
+
     static public int GetLowestBid(int jobId)
     {
         using (LuffarJobbDBEntities db = new LuffarJobbDBEntities())

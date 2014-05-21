@@ -58,7 +58,7 @@ public partial class Jobs
     public string Type { get; set; }
     public string Description { get; set; }
     public string Region { get; set; }
-    public Nullable<int> CurrentBid { get; set; }
+    public int CurrentBid { get; set; }
     public string Image { get; set; }
 
     public virtual ICollection<Bids> Bids { get; set; }

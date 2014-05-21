@@ -11,6 +11,7 @@ using System.Web.Security;
 public partial class ViewJob : System.Web.UI.Page
 {
     Jobs theJob;
+    Workers currentWorker;
     int jobId;
     int currentBid;
 
@@ -60,7 +61,7 @@ public partial class ViewJob : System.Web.UI.Page
     {
         jobId = (int)Session["theJob"];
 
-        Workers currentWorker = (Workers)Session["user"];
+        currentWorker = (Workers)Session["user"];
         int giveBid = Convert.ToInt32(Bidtxtbox.Text);
         int lowestBid = DataFactory.GetLowestBid(jobId);
         if (giveBid <= lowestBid || giveBid <= 0 || lowestBid == 0)
@@ -72,6 +73,7 @@ public partial class ViewJob : System.Web.UI.Page
                 Id_Worker = currentWorker.Id_Worker
             };
             DataFactory.AddBid(bid);
+            DataFactory.UpdateCurrentbid(jobId, giveBid);           
             Response.Redirect("ViewJob.aspx");
         }
 
@@ -87,8 +89,9 @@ public partial class ViewJob : System.Web.UI.Page
     {
         if (CommentTextArea.Value != null)
         {
+            currentWorker = (Workers)Session["user"];
             string comment = CommentTextArea.Value;
-            string author = Session["user"].ToString();
+            string author = currentWorker.UserName;
             jobId = (int)Session["theJob"];
 
             JobComments jc = new JobComments()

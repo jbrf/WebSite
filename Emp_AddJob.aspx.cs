@@ -17,6 +17,7 @@ public partial class Emp_AddJob : System.Web.UI.Page
             Response.Redirect("Default.aspx");
         }
         currentEmployer = (Employers)Session["user"];
+        Session["Id_Job"] = currentEmployer.Id_Employer;
         loggedInAsLbl.Text = currentEmployer.UserName;
     }
 
