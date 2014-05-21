@@ -8,20 +8,21 @@ using System.Web.UI.WebControls;
 
 public partial class Emp_AddJob : System.Web.UI.Page
 {
-    private Employers _currentEmployer;
+    protected Employers currentEmployer;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user"] == null) {
+        if (Session["user"] == null)
+        {
             Response.Redirect("Default.aspx");
         }
-        _currentEmployer = (Employers)Session["user"];
-        loggedInAsLbl.Text = _currentEmployer.UserName;
+        currentEmployer = (Employers)Session["user"];
+        loggedInAsLbl.Text = currentEmployer.UserName;
     }
 
     protected void AddNewJob(object sender, EventArgs e)
     {
-        int empId = _currentEmployer.Id_Employer;
+        int empId = currentEmployer.Id_Employer;
         string jobType = JobbTyp.Value;
         string jobDesc = JobbBeskrivning.Value;
         string jobReg = Community.Value;
@@ -46,11 +47,6 @@ public partial class Emp_AddJob : System.Web.UI.Page
             Region = jobReg,
             Image = path
         };
-
-        //Bids bid = new Bids()
-        //{
-        //    bid
-        //};
 
         LuffarJobbDBEntities db = new LuffarJobbDBEntities();
         db.Jobs.Add(job);

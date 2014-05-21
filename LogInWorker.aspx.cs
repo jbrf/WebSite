@@ -25,7 +25,7 @@ public partial class LogInWorker : System.Web.UI.Page
         }
         if (currentWorker.Password == password)
         {
-            Session["user"] = currentWorker.UserName;
+            Session["user"] = currentWorker;
             Response.Redirect("Wrk_ViewJobs.aspx");
         }
         else

@@ -69,7 +69,7 @@ public partial class ViewJob : System.Web.UI.Page
             {
                 Bid = Convert.ToInt32(Bidtxtbox.Text),
                 Id_Job = theJob.Id_Job,
-                Id_Worker = currentWorker.Id_Worker,
+                Id_Worker = currentWorker.Id_Worker
             };
             DataFactory.AddBid(bid);
             Response.Redirect("ViewJob.aspx");

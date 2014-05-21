@@ -29,7 +29,7 @@ public partial class RegEmployer : System.Web.UI.Page
 
             ConfirmationLblEmployer.Visible = true;
 
-            Session["user"] = RegEmailEmployer.Value;
+            Session["user"] = emp;
             Response.Redirect("Emp_AddJob.aspx");
         }
         else if (RegPasswordEmployer.Value != RegPasswordRptEmployer.Value) WrongPwLblEmployer.Visible = true;
